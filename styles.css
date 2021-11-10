@@ -4,10 +4,13 @@ html {
   --circle-diameter: 100px;
   --animation-time: 3s;
   box-sizing: border-box;
+  font-size: 18px;
+  font-family: "Montserrat", sans-serif;
 }
 
 body {
   display: flex;
+  flex-direction: column;
   height: 100vh;
   margin: 0;
   padding: 0;
@@ -209,6 +212,10 @@ body {
   background: rgba(0, 0, 0, 0);
   top: 50%;
   margin-top: -0.5px;
+}
+
+.info-text {
+  padding-top: 1rem;
 }
 
 @keyframes rotationItem {

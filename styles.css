@@ -1,0 +1,251 @@
+html {
+  --black: black;
+  --box-shadow: 1px 4px 5px 1px rgb(0 0 0 / 15%);
+  --circle-diameter: 100px;
+  --animation-time: 3s;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.grid-container {
+  position: relative;
+  padding: 0;
+  width: 500px;
+  height: 400px;
+  overflow: hidden;
+}
+
+.grid-container:hover .top-container .top-item {
+  opacity: 0;
+}
+
+.grid-container:hover .bottom-container .bottom-item {
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  box-shadow: var(--box-shadow);
+}
+
+.top-container {
+  position: absolute;
+  display: grid;
+  width: 700px;
+  height: 500px;
+  grid-template-columns: repeat(7, var(--circle-diameter));
+  grid-template-rows: repeat(5, var(--circle-diameter));
+  z-index: 1;
+  transform: translate(
+    calc(var(--circle-diameter) / 2 * -1),
+    calc(var(--circle-diameter) / 2 * -1)
+  );
+}
+
+.top-item {
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-radius: 50%;
+  overflow: hidden;
+  transition: opacity 3s ease-in-out;
+}
+
+#top-item-no-fade {
+  opacity: 1;
+}
+
+.top-item:nth-child(odd) {
+  animation: rotationCross calc(var(--animation-time) * 2)
+    cubic-bezier(0.63, 0.01, 0.41, 1.01) forwards infinite;
+}
+
+.top-item:nth-child(even) {
+  animation: rotationCross calc(var(--animation-time) * 2) 0.75s
+    cubic-bezier(0.63, 0.01, 0.41, 1.01) forwards infinite;
+}
+
+.triangle-top-left {
+  position: absolute;
+  width: 41.5px;
+  height: 41.5px;
+  background-color: #3f51b5;
+}
+
+.triangle-top-right {
+  position: absolute;
+  right: 0;
+  width: 41.5px;
+  height: 41.5px;
+  background-color: #2196f3;
+}
+
+.triangle-bottom-left {
+  position: absolute;
+  bottom: 0;
+  width: 41.5px;
+  height: 41.5px;
+  background-color: #03a9f4;
+}
+
+.triangle-bottom-right {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 41.5px;
+  height: 41.5px;
+  background-color: #00bcd4;
+}
+
+.middle-circle {
+  position: absolute;
+  top: 50%;
+  margin-top: -14.5px;
+  left: 50%;
+  margin-left: -14.5px;
+  width: 29px;
+  height: 29px;
+  z-index: -1;
+  background-color: #ffc107;
+  clip-path: polygon(
+    30% 0%,
+    70% 0%,
+    100% 30%,
+    100% 70%,
+    70% 100%,
+    30% 100%,
+    0% 70%,
+    0% 30%
+  );
+}
+
+.bottom-container {
+  position: absolute;
+  display: grid;
+  grid-template-columns: repeat(5, var(--circle-diameter));
+  grid-template-rows: repeat(4, var(--circle-diameter));
+}
+
+.bottom-item {
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-radius: 50%;
+  animation: rotationItem var(--animation-time) infinite linear;
+  z-index: 1;
+  transition: all 3s ease-in-out;
+}
+
+.bottom-item:nth-child(odd)::before {
+  content: "";
+  background-color: var(--black);
+  display: block;
+  position: absolute;
+  /* 7.5px (half height) + border width */
+  top: -8.5px;
+  left: 50%;
+  margin-left: -7.5px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+}
+
+.bottom-item:nth-child(odd)::after {
+  content: "";
+  background-color: var(--black);
+  display: block;
+  position: absolute;
+  bottom: -8.5px;
+  left: 50%;
+  margin-left: -7.5px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+}
+
+.bottom-item:nth-child(even)::before {
+  content: "";
+  background-color: var(--black);
+  display: block;
+  position: absolute;
+  top: 50%;
+  margin-top: -7.5px;
+  left: -8.5px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+}
+
+.bottom-item:nth-child(even)::after {
+  content: "";
+  background-color: var(--black);
+  display: block;
+  position: absolute;
+  right: 0;
+  margin-right: -8.5px;
+  top: 50%;
+  margin-top: -7.5px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+}
+
+.bottom-item:nth-child(odd) .line {
+  width: 1px;
+  height: var(--circle-diameter);
+  position: absolute;
+  background: rgba(0, 0, 0, 0);
+  right: 50%;
+  margin-right: -0.5px;
+}
+
+.bottom-item:nth-child(even) .line {
+  width: var(--circle-diameter);
+  height: 1px;
+  position: absolute;
+  background: rgba(0, 0, 0, 0);
+  top: 50%;
+  margin-top: -0.5px;
+}
+
+@keyframes rotationItem {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-359deg);
+  }
+}
+
+@keyframes rotationCross {
+  0% {
+    transform: rotate(0deg);
+  }
+  12.5% {
+    transform: rotate(90deg);
+  }
+  25% {
+    transform: rotate(90deg);
+  }
+  37.5% {
+    transform: rotate(180deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  62.5% {
+    transform: rotate(270deg);
+  }
+  75% {
+    transform: rotate(270deg);
+  }
+  87.5% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
